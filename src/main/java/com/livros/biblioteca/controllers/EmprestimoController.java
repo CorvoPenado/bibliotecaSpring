@@ -49,10 +49,8 @@ public class EmprestimoController {
             @PathVariable Long emprestimoId,
             @RequestBody EmprestimoDevolucaoDTO devolucaoDTO) {
 
-        // A chamada para o service agora corresponde à assinatura correta (2 argumentos)
         emprestimoService.finalizarEmprestimo(emprestimoId, devolucaoDTO);
 
-        // Retorna HTTP 204 No Content, indicando sucesso sem corpo de resposta.
         return ResponseEntity.noContent().build();
     }
 
