@@ -6,6 +6,7 @@ import com.livros.biblioteca.services.AutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,11 +23,18 @@ public class AutorController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Autor> autorCreate(@RequestBody AutorCreateRequestDTO autor){
+    public ResponseEntity<Autor> autorCreate(@Validated @RequestBody AutorCreateRequestDTO autor){
 
         Autor createAutor = autorService.autorCreate(autor);
 
         return new ResponseEntity<>(createAutor, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> autorDeletar(@PathVariable Long id){
+        autorService.deletarAutor(id);
+
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/lista")

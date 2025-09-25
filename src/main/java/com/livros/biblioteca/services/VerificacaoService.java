@@ -21,8 +21,8 @@ public class VerificacaoService {
         this.emprestimoRepository = emprestimoRepository;
     }
 
-    //Ele executa às 1h da manhã no dia @Scheduled(cron = "0 0 1 * * *")
-    @Scheduled(fixedRate = 30000) //Executa a cada 30 segundos
+    @Scheduled(cron = "0 0 1 * * *")
+    //@Scheduled(fixedRate = 30000) //Executa a cada 30 segundos
     @Transactional
     public void verificarEmprestimosAtrasados() {
         System.out.println("--- ROBÔ: Iniciando verificação de empréstimos atrasados... ---");

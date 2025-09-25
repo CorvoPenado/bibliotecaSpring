@@ -41,7 +41,7 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long> {
     """)
     List<DetalhesEmprestimoUsuarioDTO> findDetalhesTodosEmprestimos();
 
-
     List<Emprestimo> findByFinalizadoFalseAndEmDiaTrue();
 
+    boolean existsByUsuarioIdAndFinalizadoFalse(Long id);
 }

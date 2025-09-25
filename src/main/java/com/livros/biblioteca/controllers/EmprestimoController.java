@@ -9,6 +9,7 @@ import com.livros.biblioteca.services.EmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class EmprestimoController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Emprestimo> emprestimoCreate(@RequestBody EmprestimoCreateRequestDTO emprestimo){
+    public ResponseEntity<Emprestimo> emprestimoCreate(@Validated @RequestBody EmprestimoCreateRequestDTO emprestimo){
         Emprestimo createEmprestimo = emprestimoService.emprestimoCreate(emprestimo);
 
         return new ResponseEntity<>(createEmprestimo, HttpStatus.CREATED);
@@ -47,7 +48,7 @@ public class EmprestimoController {
     @PatchMapping("/{emprestimoId}/devolver")
     public ResponseEntity<Void> devolverEmprestimo(
             @PathVariable Long emprestimoId,
-            @RequestBody EmprestimoDevolucaoDTO devolucaoDTO) {
+            @Validated @RequestBody EmprestimoDevolucaoDTO devolucaoDTO) {
 
         emprestimoService.finalizarEmprestimo(emprestimoId, devolucaoDTO);
 

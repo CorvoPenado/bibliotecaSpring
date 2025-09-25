@@ -39,4 +39,5 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
        WHERE g.nome = :nomeGenero      
     """)
     List<DetalhesLivrosGeneroDTO> detalheGeneroLivros(@Param("nomeGenero") String nome);
+    boolean existsByAutorId(Long id);
 }

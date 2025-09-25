@@ -2,7 +2,9 @@ package com.livros.biblioteca.services;
 
 import com.livros.biblioteca.models.Usuario;
 import com.livros.biblioteca.recorders.UsuarioCreateRequestDTO;
+import com.livros.biblioteca.repositorys.EmprestimoRepository;
 import com.livros.biblioteca.repositorys.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +13,12 @@ import java.util.List;
 @Service
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
+    private final EmprestimoRepository emprestimoRepository;
 
     @Autowired
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, EmprestimoRepository emprestimoRepository) {
         this.usuarioRepository = usuarioRepository;
+        this.emprestimoRepository = emprestimoRepository;
     }
 
     public Usuario usuarioCreate(UsuarioCreateRequestDTO user){
@@ -26,6 +30,20 @@ public class UsuarioService {
         newUser.setIdade(user.idade());
 
         return usuarioRepository.save(newUser);
+
+    }
+
+    @Transactional
+    public void deletarUsuario(Long id){
+        if(!usuarioRepository.existsById(id)){
+            throw new RuntimeException("Usuário não encontradao do ID: " + id);
+        }
+
+        if(emprestimoRepository.existsByUsuarioIdAndFinalizadoFalse(id)){
+            throw new RuntimeException("Não é possível deletar o usuário, pois ele ainda possui empréstimos ativos (não finalizados).");
+        }
+
+        usuarioRepository.deleteById(id);
 
     }
 

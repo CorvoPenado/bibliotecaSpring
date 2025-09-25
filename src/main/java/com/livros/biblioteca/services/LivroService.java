@@ -12,6 +12,7 @@ import com.livros.biblioteca.repositorys.AutorRepository;
 import com.livros.biblioteca.repositorys.CopiaRepository;
 import com.livros.biblioteca.repositorys.GeneroRepository;
 import com.livros.biblioteca.repositorys.LivroRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +55,11 @@ public class LivroService {
         copiaRepository.save(copia);
 
         return savedLivro;
+    }
+
+    @Transactional
+    public void deletarLivro(Long id){
+        livroRepository.deleteById(id);
     }
 
     public List<DetalhesLivrosAutorDTO> encontrarLivrosAutor(String nomeAutor){

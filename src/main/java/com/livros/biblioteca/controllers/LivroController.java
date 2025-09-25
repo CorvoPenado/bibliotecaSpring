@@ -8,6 +8,7 @@ import com.livros.biblioteca.services.LivroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,10 +25,17 @@ public class LivroController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Livro> livroCreate(@RequestBody LivroCreateRequestDTO livro){
+    public ResponseEntity<Livro> livroCreate(@Validated @RequestBody LivroCreateRequestDTO livro){
         Livro createLivro = livroService.livroCreate(livro);
 
         return new ResponseEntity<>(createLivro, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> livroDeletar(@PathVariable Long id){
+        livroService.deletarLivro(id);
+
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/lista")
