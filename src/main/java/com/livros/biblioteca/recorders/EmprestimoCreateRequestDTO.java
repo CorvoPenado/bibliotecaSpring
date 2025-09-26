@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 public record EmprestimoCreateRequestDTO(
 
-        @NotBlank(message = "Data de Termino não pode ser vazia")
+        @NotNull(message = "Data de Termino não pode ser vazia")
         LocalDateTime dataTermino,
         @NotNull(message = "Quantidade não pode ser nula")
         @Min(value = 1, message = "Quantidade deve ser no mínimo 1")

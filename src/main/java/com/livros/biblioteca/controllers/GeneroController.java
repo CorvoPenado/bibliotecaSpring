@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/generos")
 public class GeneroController {
@@ -28,6 +30,11 @@ public class GeneroController {
         Genero createGenero = generoService.generoCreate(genero);
 
         return new ResponseEntity<>(createGenero, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/lista")
+    public List<Genero> getAllGeneros(){
+        return generoService.getGeneros();
     }
 
 }

@@ -8,6 +8,8 @@ import com.livros.biblioteca.repositorys.GeneroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GeneroService {
 
@@ -26,6 +28,10 @@ public class GeneroService {
 
         return generoRepository.save(newGenero);
 
+    }
+
+    public List<Genero> getGeneros(){
+        return generoRepository.findAll();
     }
 
 }

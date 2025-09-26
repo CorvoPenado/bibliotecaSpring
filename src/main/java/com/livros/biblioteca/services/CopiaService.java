@@ -39,7 +39,7 @@ public class CopiaService {
                 throw new IllegalArgumentException("A quantidade não pode ser um valor negativo.");
             }
 
-            copiaExistente.setQuantidade(novaQuantidade);
+            copiaExistente.setQuantidade(copiaExistente.getQuantidade() + novaQuantidade);
 
             if (novaQuantidade > 0) {
                 copiaExistente.setStatus("DISPONÍVEL");

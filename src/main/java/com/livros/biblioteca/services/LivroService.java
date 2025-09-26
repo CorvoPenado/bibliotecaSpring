@@ -57,10 +57,12 @@ public class LivroService {
         return savedLivro;
     }
 
+    /*
     @Transactional
     public void deletarLivro(Long id){
         livroRepository.deleteById(id);
     }
+    */
 
     public List<DetalhesLivrosAutorDTO> encontrarLivrosAutor(String nomeAutor){
         return livroRepository.detalheAutorLivros(nomeAutor);

@@ -31,12 +31,13 @@ public class LivroController {
         return new ResponseEntity<>(createLivro, HttpStatus.CREATED);
     }
 
+    /*
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> livroDeletar(@PathVariable Long id){
         livroService.deletarLivro(id);
 
         return ResponseEntity.noContent().build();
-    }
+    }*/
 
     @GetMapping("/lista")
     public List<Livro> getAllLivros(){
