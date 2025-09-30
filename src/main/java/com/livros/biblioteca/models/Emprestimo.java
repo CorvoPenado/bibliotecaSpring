@@ -22,6 +22,9 @@ public class Emprestimo {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime dataEmprestimoTermino;
 
+    @Column(name = "data_finalizado_emprestimo")
+    private LocalDateTime dataFinalizadoEmprestimo;
+
     @Column(name = "quantidade", columnDefinition = "INTEGER DEFAULT 1")
     private Integer quantidade = 1;
 
@@ -64,6 +67,13 @@ public class Emprestimo {
 
     public void setDataEmprestimoTermino(LocalDateTime dataEmprestimoTermino) {
         this.dataEmprestimoTermino = dataEmprestimoTermino;
+    }
+    public LocalDateTime getDataFinalizadoEmprestimo() {
+        return dataFinalizadoEmprestimo;
+    }
+
+    public void setDataFinalizadoEmprestimo(LocalDateTime dataFinalizadoEmprestimo) {
+        this.dataFinalizadoEmprestimo = dataFinalizadoEmprestimo;
     }
 
     public Integer getQuantidade() {

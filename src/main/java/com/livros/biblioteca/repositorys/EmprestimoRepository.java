@@ -29,7 +29,8 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long> {
             e.emDia,
             e.finalizado,
             e.multa,
-            e.dataEmprestimoTermino
+            e.dataEmprestimoTermino,
+            e.dataFinalizadoEmprestimo
         )
         
         FROM Emprestimo e

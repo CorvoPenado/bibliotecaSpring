@@ -27,15 +27,15 @@ public class VerificacaoService {
     public void verificarEmprestimosAtrasados() {
         System.out.println("--- ROBÔ: Iniciando verificação de empréstimos atrasados... ---");
 
-        // 1. Busca todos os empréstimos que não foram finalizados e estão em dia.
+        //Busca todos os empréstimos que não foram finalizados e estão em dia.
         List<Emprestimo> emprestimosAtivos = emprestimoRepository.findByFinalizadoFalseAndEmDiaTrue();
 
         for (Emprestimo emprestimo : emprestimosAtivos) {
-            // 2. Verifica se a data de término já passou.
+            //Verifica se a data de término já passou.
             if (emprestimo.getDataEmprestimoTermino().isBefore(LocalDateTime.now())) {
                 System.out.println("Empréstimo ID " + emprestimo.getId() + " está atrasado! Aplicando multa.");
 
-                // 3. Aplica a regra de negócio.
+                //Aplica a regra de negócio.
                 emprestimo.setEmDia(false);
                 emprestimo.setMulta(10); // Ou emprestimo.setMulta(emprestimo.getMulta() + 10);
 
