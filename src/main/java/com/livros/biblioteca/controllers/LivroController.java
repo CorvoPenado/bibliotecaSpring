@@ -2,6 +2,7 @@ package com.livros.biblioteca.controllers;
 
 import com.livros.biblioteca.models.Livro;
 import com.livros.biblioteca.recorders.DetalhesLivrosAutorDTO;
+import com.livros.biblioteca.recorders.DetalhesLivrosDTO;
 import com.livros.biblioteca.recorders.DetalhesLivrosGeneroDTO;
 import com.livros.biblioteca.recorders.LivroCreateRequestDTO;
 import com.livros.biblioteca.services.LivroService;
@@ -40,7 +41,7 @@ public class LivroController {
     }*/
 
     @GetMapping("/lista")
-    public List<Livro> getAllLivros(){
+    public List<DetalhesLivrosDTO> getAllLivros(){
         return livroService.getLivros();
     }
 

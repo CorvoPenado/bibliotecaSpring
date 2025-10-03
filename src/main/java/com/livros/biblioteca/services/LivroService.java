@@ -4,17 +4,14 @@ import com.livros.biblioteca.models.Autor;
 import com.livros.biblioteca.models.Copia;
 import com.livros.biblioteca.models.Genero;
 import com.livros.biblioteca.models.Livro;
-import com.livros.biblioteca.recorders.CopiaCreateRequestDTO;
-import com.livros.biblioteca.recorders.DetalhesLivrosAutorDTO;
-import com.livros.biblioteca.recorders.DetalhesLivrosGeneroDTO;
-import com.livros.biblioteca.recorders.LivroCreateRequestDTO;
+import com.livros.biblioteca.recorders.*;
 import com.livros.biblioteca.repositorys.AutorRepository;
 import com.livros.biblioteca.repositorys.CopiaRepository;
 import com.livros.biblioteca.repositorys.GeneroRepository;
 import com.livros.biblioteca.repositorys.LivroRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -72,8 +69,20 @@ public class LivroService {
         return livroRepository.detalheGeneroLivros(nomeGenero);
     }
 
-    public List<Livro> getLivros(){
-        return livroRepository.findAll();
+    //Resolve o caso da conexão fechar antes de concluir a requisição
+    //o @Transactional(readOnly = true) diz: Execute isso e só fecha quando terminar tudo
+    //Prático e funcional :3
+    @Transactional(readOnly = true)
+    public List<DetalhesLivrosDTO> getLivros(){
+        List<Livro> livros = livroRepository.findAll();
+
+        return livros.stream().map(livro -> new DetalhesLivrosDTO(
+                livro.getId(),
+                livro.getTitulo(),
+                livro.getSinopse(),
+                livro.getAutor().getNome(),
+                livro.getGenero().getNome()
+        )).toList();
     }
 
 }

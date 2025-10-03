@@ -12,6 +12,10 @@ public record UsuarioCreateRequestDTO(
         @Email(message = "O formato do Email está incorreto")
         String email,
 
+        @NotBlank(message = "A senha não pode estar em branco")
+        @Size(min = 3,max = 14,message = "A senha deve contar de 3 a 50 caracteres")
+        String senha,
+
         @NotNull(message = "A idade não pode ser nula")
         @Min(value = 1,message = "A idade deve ser no mínimo 1")
         Integer idade

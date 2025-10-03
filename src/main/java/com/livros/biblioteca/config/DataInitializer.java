@@ -3,6 +3,7 @@ package com.livros.biblioteca.config;
 import com.livros.biblioteca.models.*;
 import com.livros.biblioteca.repositorys.*;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,14 +15,16 @@ public class DataInitializer implements CommandLineRunner {
     private final LivroRepository livroRepository;
     private final UsuarioRepository usuarioRepository;
     private final CopiaRepository copiaRepository;
+    private final PasswordEncoder passwordEncoder;
 
     // Injete todos os repositórios
-    public DataInitializer(AutorRepository autorRepository, GeneroRepository generoRepository, LivroRepository livroRepository, UsuarioRepository usuarioRepository, CopiaRepository copiaRepository) {
+    public DataInitializer(AutorRepository autorRepository, GeneroRepository generoRepository, LivroRepository livroRepository, UsuarioRepository usuarioRepository, CopiaRepository copiaRepository, PasswordEncoder passwordEncoder) {
         this.autorRepository = autorRepository;
         this.generoRepository = generoRepository;
         this.livroRepository = livroRepository;
         this.usuarioRepository = usuarioRepository;
         this.copiaRepository = copiaRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -40,8 +43,10 @@ public class DataInitializer implements CommandLineRunner {
 
         // Crie um usuário
         Usuario usuario = new Usuario();
-        usuario.setNome("Leitor Padrão");
-        usuario.setEmail("leitor@email.com");
+        usuario.setNome("Nicolly Barros");
+        usuario.setEmail("nick.bl@email.com");
+        usuario.setSenha(passwordEncoder.encode("123"));
+        usuario.setRole(Role.ADMIN);
         usuario.setIdade(25);
         usuarioRepository.save(usuario);
 

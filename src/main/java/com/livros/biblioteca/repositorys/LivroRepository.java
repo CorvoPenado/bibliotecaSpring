@@ -3,6 +3,7 @@ package com.livros.biblioteca.repositorys;
 import com.livros.biblioteca.models.Livro;
 import com.livros.biblioteca.models.Usuario;
 import com.livros.biblioteca.recorders.DetalhesLivrosAutorDTO;
+import com.livros.biblioteca.recorders.DetalhesLivrosDTO;
 import com.livros.biblioteca.recorders.DetalhesLivrosGeneroDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -40,4 +41,6 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
     """)
     List<DetalhesLivrosGeneroDTO> detalheGeneroLivros(@Param("nomeGenero") String nome);
     boolean existsByAutorId(Long id);
+
+
 }

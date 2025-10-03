@@ -15,8 +15,9 @@ public class Livro {
     @Column(name = "titulo",nullable = false,length = 64)
     private String titulo;
 
-    @Column(name = "sinopse",nullable = false)
     @Lob
+    @Basic(fetch = FetchType.EAGER)
+    @Column(name = "sinopse",nullable = false)
     private String sinopse;
 
     @CreationTimestamp
