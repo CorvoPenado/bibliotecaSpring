@@ -99,4 +99,3 @@ Após iniciar a aplicação, acesse a seguinte URL no seu navegador:
 - [ ] Implementar **Spring Security** com autenticação via JWT para proteger os endpoints.
 - [ ] Adicionar **testes de unidade e integração** para garantir a qualidade e a estabilidade do código.
 - [ ] Implementar **paginação** (`Pageable`) nos endpoints de listagem para lidar com grandes volumes de dados.
-- [ ] Adicionar um campo `dataFinalizado` para registrar o momento exato em que um empréstimo é concluído.
