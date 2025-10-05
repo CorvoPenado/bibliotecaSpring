@@ -93,11 +93,8 @@ public class EmprestimoService {
         }
 
         Copia copia = emprestimo.getCopia();
-        Integer novaQuantidadeEstoque = copia.getQuantidade() + qtdDevolvida;
-
-        CopiaQuantidadePatchDTO patchDTO = new CopiaQuantidadePatchDTO(novaQuantidadeEstoque);
-
-        copiaService.atualizarAquantidade(copia.getId(), patchDTO);
+        copia.setQuantidade(copia.getQuantidade() + qtdDevolvida);
+        copia.setStatus(copia.getQuantidade() > 0 ? "DISPONÍVEL" : "INDISPONÍVEL");
 
         int quantidadeRestante = emprestimo.getQuantidade() - qtdDevolvida;
         emprestimo.setQuantidade(quantidadeRestante);
@@ -108,6 +105,8 @@ public class EmprestimoService {
             emprestimo.setMulta(0);
             emprestimo.setDataFinalizadoEmprestimo(LocalDateTime.now());
         }
+        copiaRepository.save(copia);
+        emprestimoReposistory.save(emprestimo);
 
     }
 
@@ -117,6 +116,26 @@ public class EmprestimoService {
 
     public List<DetalhesEmprestimoUsuarioDTO> listarDetalhesDeEmprestimo(){
         return emprestimoReposistory.findDetalhesTodosEmprestimos();
+    }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public List<DetalhesEmprestimoUsuarioDTO> buscarEmprestimosUsuario(Usuario usuario){
+        List<Emprestimo> emprestimos = emprestimoReposistory.findByUsuario(usuario);
+
+        return emprestimos.stream()
+                .map(emprestimo -> new DetalhesEmprestimoUsuarioDTO(
+                        emprestimo.getId(),
+                        emprestimo.getUsuario().getNome(),     // Pega o nome do objeto Usuario relacionado
+                        emprestimo.getCopia().getLivro().getTitulo(),     // Pega o título do objeto Livro relacionado
+                        emprestimo.getQuantidade(),
+                        emprestimo.getEmDia(),
+                        emprestimo.getFinalizado(),
+                        emprestimo.getMulta(),
+                        emprestimo.getDataEmprestimoTermino(),
+                        emprestimo.getDataFinalizadoEmprestimo()
+                ))
+                .toList();
+
     }
 
 }

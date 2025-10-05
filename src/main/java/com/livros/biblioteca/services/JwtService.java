@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -32,10 +35,16 @@ public class JwtService {
         // Define o tempo de expiração do token (aqui, 2 horas)
         Instant expiracao = agora.plusSeconds(7200); // 2 horas * 3600 segundos
 
+        List<String> roles = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
         return Jwts.builder()
                 .setIssuer("API Biblioteca") // Quem está emitindo o token
                 .setSubject(principal.getUsername()) // Quem é o usuário (no nosso caso, o email)
                 .setIssuedAt(Date.from(agora)) // Data de emissão
+                .claim("roles",roles)
+                .claim("userId",principal.getId())
                 .setExpiration(Date.from(expiracao)) // Data de expiração
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256) // Assina com o algoritmo e a chave secreta
                 .compact(); // Compacta tudo em uma string

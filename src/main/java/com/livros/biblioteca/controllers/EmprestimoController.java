@@ -1,6 +1,7 @@
 package com.livros.biblioteca.controllers;
 
 import com.livros.biblioteca.models.Emprestimo;
+import com.livros.biblioteca.models.Usuario;
 import com.livros.biblioteca.recorders.CopiaQuantidadePatchDTO;
 import com.livros.biblioteca.recorders.DetalhesEmprestimoUsuarioDTO;
 import com.livros.biblioteca.recorders.EmprestimoCreateRequestDTO;
@@ -9,6 +10,7 @@ import com.livros.biblioteca.services.EmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +55,13 @@ public class EmprestimoController {
         emprestimoService.finalizarEmprestimo(emprestimoId, devolucaoDTO);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/meus")
+    public ResponseEntity<List<DetalhesEmprestimoUsuarioDTO>> getMeusEmprestimos(@AuthenticationPrincipal Usuario usuario) {
+        List<DetalhesEmprestimoUsuarioDTO> emprestimosDTO = emprestimoService.buscarEmprestimosUsuario(usuario);
+
+        return ResponseEntity.ok(emprestimosDTO);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.livros.biblioteca.controllers;
 
+import com.livros.biblioteca.models.Usuario;
 import com.livros.biblioteca.recorders.LoginDTO;
 import com.livros.biblioteca.recorders.LoginResponseDTO;
 import com.livros.biblioteca.services.JwtService;

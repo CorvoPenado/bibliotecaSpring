@@ -64,8 +64,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 // Desabilita o CSRF, depois usar sessões que é o padrão APi REST
-                .csrf(csrf -> csrf.disable())
                 .cors(withDefaults())
+                .csrf(csrf -> csrf.disable())
+
                 // Configura o gerenciamento de sessão como STATELESS (sem estado)
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
@@ -80,7 +81,8 @@ public class SecurityConfig {
 
                         //Usuarios
                         .requestMatchers(HttpMethod.GET, "/livros/lista").hasRole("USER")
-
+                        .requestMatchers(HttpMethod.POST, "/emprestimos/create").hasRole("USER")
+                        .requestMatchers(HttpMethod.PATCH, "/emprestimos/{emprestimoId}/devolver").hasRole("USER")
 
                         //Exclusivo pra ADMIN
                         .requestMatchers(HttpMethod.DELETE, "/usuarios/{id}").hasRole("ADMIN")

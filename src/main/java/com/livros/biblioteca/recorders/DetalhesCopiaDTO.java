@@ -1,6 +1,8 @@
 package com.livros.biblioteca.recorders;
 
-public record DetalhesCopiaDTO(String tituloLivro,
+public record DetalhesCopiaDTO(
+                               Long id,
+                               String tituloLivro,
                                String nomeGenero,
                                String nomeAutor,
                                String statusCopia,

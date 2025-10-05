@@ -1,11 +1,13 @@
 package com.livros.biblioteca.services;
 
+import com.livros.biblioteca.models.Role;
 import com.livros.biblioteca.models.Usuario;
 import com.livros.biblioteca.recorders.UsuarioCreateRequestDTO;
 import com.livros.biblioteca.repositorys.EmprestimoRepository;
 import com.livros.biblioteca.repositorys.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +16,13 @@ import java.util.List;
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final EmprestimoRepository emprestimoRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UsuarioService(UsuarioRepository usuarioRepository, EmprestimoRepository emprestimoRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, EmprestimoRepository emprestimoRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.emprestimoRepository = emprestimoRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Usuario usuarioCreate(UsuarioCreateRequestDTO user){
@@ -28,6 +32,8 @@ public class UsuarioService {
         newUser.setNome(user.nome());
         newUser.setEmail(user.email());
         newUser.setIdade(user.idade());
+        newUser.setSenha(passwordEncoder.encode(user.senha()));
+        newUser.setRole(Role.USER);
 
         return usuarioRepository.save(newUser);
 

@@ -1,6 +1,7 @@
 package com.livros.biblioteca.repositorys;
 
 import com.livros.biblioteca.models.Emprestimo;
+import com.livros.biblioteca.models.Usuario;
 import com.livros.biblioteca.recorders.DetalhesEmprestimoUsuarioDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,6 +24,7 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long> {
     @Query("""
         
         SELECT new com.livros.biblioteca.recorders.DetalhesEmprestimoUsuarioDTO(
+            e.id,
             u.nome,
             l.titulo,
             e.quantidade,
@@ -45,4 +47,6 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long> {
     List<Emprestimo> findByFinalizadoFalseAndEmDiaTrue();
 
     boolean existsByUsuarioIdAndFinalizadoFalse(Long id);
+
+    List<Emprestimo> findByUsuario(Usuario usuario);
 }

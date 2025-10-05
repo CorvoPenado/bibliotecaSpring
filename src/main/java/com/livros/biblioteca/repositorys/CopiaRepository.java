@@ -15,6 +15,7 @@ public interface CopiaRepository extends JpaRepository<Copia, Long> {
     @Query("""
     
         SELECT new com.livros.biblioteca.recorders.DetalhesCopiaDTO(
+        c.id,
         l.titulo,
         g.nome,
         a.nome,
