@@ -96,6 +96,5 @@ Após iniciar a aplicação, acesse a seguinte URL no seu navegador:
 
 ## 🔄 Próximos Passos e Melhorias
 
-- [ ] Implementar **Spring Security** com autenticação via JWT para proteger os endpoints.
 - [ ] Adicionar **testes de unidade e integração** para garantir a qualidade e a estabilidade do código.
 - [ ] Implementar **paginação** (`Pageable`) nos endpoints de listagem para lidar com grandes volumes de dados.
