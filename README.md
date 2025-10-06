@@ -1,17 +1,42 @@
 # 📚 API de Gerenciamento de Biblioteca (Biblioteca-Spring)
 
-API RESTful construída com Spring Boot para gerenciar o acervo, usuários e empréstimos de uma biblioteca. Este projeto foi desenvolvido como uma peça de portfólio para demonstrar habilidades no ecossistema Spring e na construção de backends.
+API RESTful construída com Spring Boot para gerenciar o acervo, usuários e empréstimos de uma biblioteca. Este projeto foi desenvolvido como uma peça de portfólio para demonstrar habilidades no ecossistema Spring e na construção de backends robustos e seguros.
 
 ![Java](https://img.shields.io/badge/Java-17%2B-blue?logo=java)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green?logo=spring)
+![Spring Security](https://img.shields.io/badge/Spring%20Security-6.x-blue?logo=springsecurity)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14-blue?logo=postgresql)
 ![Maven](https://img.shields.io/badge/Maven-4-red?logo=apachemaven)
 
 ---
 
-## 🚀 Demonstração em Ação
+## 🖥️ Demonstração do Front-End
 
-As animações abaixo demonstram os principais fluxos da API sendo testados.
+Além da API, um front-end foi desenvolvido para consumir os dados e proporcionar uma interface de usuário completa. Abaixo estão as demonstrações das principais funcionalidades:
+
+#### Cadastro e Login de Usuários
+![Cadastro e Login de Usuários](assets/cadastroLogin.gif)
+
+#### Página Inicial e Navegação Geral
+![Página Inicial e Navegação](assets/paginaHome.gif)
+
+#### Criação de Livros
+![Criação de Livros](assets/livrosCriacao.gif)
+
+#### Cadastro de Autores e Gêneros
+![Cadastro de Autores e Gêneros](assets/cadastroAutorGenero.gif)
+
+#### Fluxo de Empréstimo e Devolução
+![Fluxo de Empréstimo e Devolução](assets/emprestimoDevolucao.gif)
+
+#### Demonstração de Paginação
+![Paginação](assets/paginas.gif)
+
+---
+
+## 🚀 Demonstração da API (Endpoints)
+
+As animações abaixo demonstram os principais fluxos da API sendo testados via cliente HTTP.
 
 | **Endpoints de Usuários (CRUD)** | **Endpoints de Livros (com DTO)** |
 | :---: | :---: |
@@ -33,6 +58,12 @@ Este projeto implementa uma série de funcionalidades e conceitos importantes no
 - **Tarefas Agendadas (`@Scheduled`):** Um processo automático que verifica empréstimos atrasados e aplica multas, simulando um "cron job" no backend.
 - **Gerenciamento Transacional (`@Transactional`):** Garante a consistência dos dados em operações de negócio que envolvem múltiplas alterações no banco.
 
+#### Segurança e Autenticação (Spring Security)
+- **Controle de Acesso por Perfil:** Acesso a endpoints separado por perfis (`ROLE_ADMIN`, `ROLE_USER`).
+- **Endpoints Públicos:** Rotas de Login (`/login`) e Cadastro de Usuário (`/usuarios`) são públicas para permitir a autenticação e o registro de novos usuários.
+- **Acesso Restrito para Usuários:** A visualização de livros é permitida para o perfil `ROLE_USER`.
+- **Acesso Restrito para Administradores:** A deleção de usuários é uma rota restrita ao perfil `ROLE_ADMIN`, protegendo operações críticas.
+
 #### Regras de Negócio Implementadas
 - Um livro só pode ser cadastrado se o autor já existir no sistema.
 - Ao cadastrar um livro, uma cópia com quantidade padrão é criada automaticamente.
@@ -46,6 +77,7 @@ Este projeto implementa uma série de funcionalidades e conceitos importantes no
 
 * **Linguagem:** Java 17
 * **Framework:** Spring Boot 3
+* **Segurança:** Spring Security 6
 * **Persistência:** Spring Data JPA / Hibernate
 * **Banco de Dados:** PostgreSQL
 * **Build Tool:** Maven
@@ -91,10 +123,3 @@ Toda a API está documentada e pode ser testada interativamente através do Swag
 
 Após iniciar a aplicação, acesse a seguinte URL no seu navegador:
 [**http://localhost:8080/swagger-ui.html**](http://localhost:8080/swagger-ui.html)
-
----
-
-## 🔄 Próximos Passos e Melhorias
-
-- [ ] Adicionar **testes de unidade e integração** para garantir a qualidade e a estabilidade do código.
-- [ ] Implementar **paginação** (`Pageable`) nos endpoints de listagem para lidar com grandes volumes de dados.
